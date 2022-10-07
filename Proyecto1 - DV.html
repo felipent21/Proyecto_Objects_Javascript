@@ -1,0 +1,213 @@
+<script>
+    opc = 0;
+
+    myObj =[{id:001, identificacion: 10, nombre:'kellly',apellido:'suarez',contrasenia:'1234',saldo:10000,tipo_cuenta:'ahorros'},
+    {id:002, identificacion: 11 , nombre:'pedro',apellido:'perez',contrasenia:'5678',saldo:20000,tipo_cuenta:'ahorros'},
+    {id:003, identificacion: 12, nombre:'juan',apellido:'ortiz',contrasenia:'9012',saldo:30000,tipo_cuenta:'corriente'},
+    {id:004, identificacion: 13, nombre:'sandra',apellido:'sanchez',contrasenia:'3456',saldo:40000,tipo_cuenta:'corriente'}];
+
+    while (opc != 7) {     
+         
+
+        opc = parseInt(prompt('SELECCIONE UNA OPCION \n1.RETIRO CUENTA DE AHORRO\n2.RETIRO CUENTA CORRIENTE \n3.CONSULTAR SALDOS \n4.ACTUALIZAR CLAVE\n5.PAGAR SERVICIOS\n6.TRANSFERENCIAS\n7.SALIR'));
+         
+        switch (opc) {
+            case 1:
+
+                contra = prompt('INGRESE SU CONTRASEÑA');
+                tipoc = 'ahorros'
+                myObj.forEach(object =>{
+                if(object.contrasenia == contra &&  object.tipo_cuenta == tipoc){
+
+                cant = parseInt(prompt('CUANTO DESEA RETIRAR'));
+                
+                if(cant > object.saldo){
+                  alert("FONDOS INSUFICIENTES");
+                }
+                else{
+
+                actualiza = myObj.map(p =>
+                p.contrasenia == contra
+                ? { ...p, saldo: p.saldo-cant }
+                : p
+                );
+                
+                alert(" BANCAFE  \n TRANSACCION EXITOSA \n FECHA   HORA\n "+datosOpe()+
+                "\n ID CUENTA"+object.id+"\n GRACIAS :"+object.nombre+object.apellido);
+               }
+               
+                
+
+               }
+
+                            
+
+
+                            
+              }
+                               
+               );                 
+             break;
+
+             case 2:
+                contra = prompt('INGRESE SU CONTRASEÑA');
+                tipoc = 'corriente'
+                myObj.forEach(object =>{if(object.contrasenia == contra &&  object.tipo_cuenta == tipoc){
+
+                cant = parseInt(prompt('CUANTO DESEA RETIRAR'));
+                if(cant > object.saldo){
+                  alert("FONDOS INSUFICIENTES");
+                }
+                else{
+                actualiza = myObj.map(p =>
+                p.contrasenia == contra
+                ? { ...p, saldo: p.saldo-cant }
+                : p
+                );
+                
+                alert(" BANCAFE  \n TRANSACCION EXITOSA \n FECHA   HORA\n "+datosOpe()+
+                "\n ID CUENTA"+object.id+"\n GRACIAS :"+object.nombre+object.apellido);
+                
+                }
+                
+
+                }                
+    
+                }
+                );
+
+                 break;
+             case 3:
+                
+                   contra = prompt('INGRESE SU CONTRASEÑA');
+
+                   myObj.forEach(object =>{if(object.contrasenia == contra){
+
+                    alert(" BANCAFE  \n SU SALDO ES"+object.saldo+ "\n FECHA   HORA\n "+datosOpe()+
+                    "\n ID CUENTA"+object.id+"\n GRACIAS :"+object.nombre+object.apellido);          
+
+
+                  }                
+
+                  }
+                  );                    
+
+
+               break;
+             case 4:
+                contra = prompt('INGRESE SU CONTRASEÑA');
+                 
+               
+                myObj.forEach(object =>{if(object.contrasenia == contra){
+
+                ncontra = prompt('INGRESE NUEVA CONTRASEÑA');
+
+                 actualiza = myObj.map(p =>
+                p.contrasenia == contra
+                ? { ...p, contrasenia: ncontra }
+                : p
+                );
+                
+                alert(" BANCAFE  \n CLAVE CAMBIADA CON EXITO \n FECHA   HORA\n "+datosOpe()+
+                "\n ID CUENTA"+object.id+"\n GRACIAS :"+object.nombre+object.apellido);
+
+
+                }                
+    
+                });                    
+                
+               break;
+             case 5:
+                contra = prompt('INGRESE SU CONTRASEÑA');
+                
+                myObj.forEach(object =>{if(object.contrasenia == contra){
+
+                vfac = parseInt(prompt('INDIQUE VALOR DE LA FACTURA'));
+                if(object.saldo < vfac){
+                  alert("FONDOS INSUFICIENTES")
+                }
+                else{
+                actualiza = myObj.map(p =>
+                p.contrasenia == contra
+                ? { ...p, saldo: p.saldo-vfac }
+                : p
+                );
+                
+                alert(" BANCAFE  \n TRANSACCION EXITOSA \n FECHA   HORA\n "+datosOpe()+
+                "\n ID CUENTA"+object.id+"\n GRACIAS :"+object.nombre+object.apellido);
+                } 
+                }                                
+    
+                }              
+                
+                );     
+
+              break;
+             case 6:
+                contra = prompt('INGRESE SU CONTRASEÑA');
+                myObj.forEach(object =>{if(object.contrasenia == contra){
+
+                des = parseInt(prompt('INGRESE ID CUENTA DESTINO'));
+                myObj.forEach(object =>{if(object.id == des){
+                
+                cant = parseFloat(prompt('INGRESE LA CANTIDAD A TRANSFERIR'));  
+                
+                if(cant > object.saldo){
+                  alert("FONDOS INSUFICIENTES")
+                }
+                else{
+
+                actualiza = myObj.map(p =>
+                p.contrasenia == contra
+                ? { ...p, saldo: p.saldo-cant }
+                : p
+                );
+                
+                myObj=actualiza;
+
+                actualiza = myObj.map(p =>
+                p.id == des
+                ? { ...p, saldo: p.saldo+cant }
+                : p
+                );
+
+
+                alert(" BANCAFE  \n TRANSACCION EXITOSA \n FECHA   HORA\n "+datosOpe()+
+                "\n ID CUENTA"+object.id+"\n GRACIAS :"+object.nombre+object.apellido);
+               }
+
+               }
+               }
+               );
+               }                               
+
+               }              
+
+               );   
+                
+                
+
+
+                break;
+              case 7:
+                
+                alert("GRACIAS HASTA LA PROXIMA");
+
+              break;
+        
+             default:
+                opc = 7;
+                break;
+            }
+
+      myObj=actualiza;
+      function datosOpe(){
+      var hoy = new Date(); 
+      var ahora = hoy.toLocaleString();
+      return ahora;
+      }
+      
+    }    
+
+
+</script>
